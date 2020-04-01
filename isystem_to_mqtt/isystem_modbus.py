@@ -33,6 +33,8 @@ class ISystemInstrument(Instrument):
     def wait_time_slot(self):
         """ In bi-master mode, wait for the 5s boiler is slave. """
         # if not in bimaster mode no need to wait
+        os.system ("gpio write 0 0") 
+        os.system ("gpio write 2 1") 
         if not self.bimaster:
             return
 
