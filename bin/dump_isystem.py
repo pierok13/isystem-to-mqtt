@@ -34,8 +34,7 @@ numeric_level = getattr(logging, args.log.upper(), None)
 if not isinstance(numeric_level, int):
     raise ValueError("Invalid log level: {0}".format(args.log))
 logging.basicConfig(level=numeric_level)
-os.system ("gpio mode 0 OUT") 
-os.system ("gpio mode 2 OUT") 
+
 _LOGGER = logging.getLogger(__name__)
 
 
