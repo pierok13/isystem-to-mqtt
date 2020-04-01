@@ -35,7 +35,8 @@ numeric_level = getattr(logging, args.log.upper(), None)
 if not isinstance(numeric_level, int):
     raise ValueError("Invalid log level: {0}".format(args.log))
 logging.basicConfig(level=numeric_level)
-
+os.system ("gpio mode 0 OUT") 
+os.system ("gpio mode 2 OUT") 
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -78,6 +79,7 @@ def read_zone(base_address, number_of_value):
 instrument.wait_time_slot()
 os.system ("gpio write 0 1") 
 os.system ("gpio write 2 0") 
+
 MAX_NUMBER_BY_READ = 123
 
 # The total read time must be under the time slot duration
