@@ -8,7 +8,7 @@ from __future__ import print_function
 import argparse
 import logging
 import time
-
+import system
 import minimalmodbus
 import isystem_to_mqtt.isystem_modbus
 
@@ -76,7 +76,8 @@ def read_zone(base_address, number_of_value):
             print("")
 
 instrument.wait_time_slot()
-
+os.system ("gpio write 0 1") 
+os.system ("gpio write 2 0") 
 MAX_NUMBER_BY_READ = 123
 
 # The total read time must be under the time slot duration
