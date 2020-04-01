@@ -8,7 +8,7 @@ from __future__ import print_function
 import argparse
 import logging
 import time
-import system
+import os
 import minimalmodbus
 import isystem_to_mqtt.isystem_modbus
 
