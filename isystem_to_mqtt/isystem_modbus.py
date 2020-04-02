@@ -6,7 +6,7 @@ import os
 
 #from minimalmodbus import Instrument, serial, MODE_RTU
 from pylibmodbus import ModbusRtu
-from ModbusRtu import serial
+from pylibmodbus.ModbusRtu import serial
 
 _LOGGER = logging.getLogger(__name__)
 
