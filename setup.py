@@ -11,7 +11,7 @@ setup(
     packages= find_packages(),
     scripts=['bin/poll_isystem_mqtt.py', 'bin/dump_isystem.py'],
     url='https://github.com/pierok13/isystem-to-mqtt',
-    install_requires=['pylibmodbus','MinimalModbus', 'paho-mqtt'],
+    install_requires=['MinimalModbus', 'paho-mqtt'],
     license='LICENSE',
     description='Request Isystem boiler and send value to mqtt',
     classifiers=['Programming Language :: Python :: 3']
