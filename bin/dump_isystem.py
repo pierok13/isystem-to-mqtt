@@ -16,9 +16,10 @@ import isystem_to_mqtt.tables
 parser = argparse.ArgumentParser()
 parser.add_argument("--start", help="Start adress default=0.", type=int, default=0)
 parser.add_argument("--number", help="Number of word to read.", type=int, default=838)
-parser.add_argument("--stop_bit", help="stop bit", type=int, default=1)
-parser.add_argument("--parity", help="parity", default="N")
-parser.add_argument("--data_bit", help="databits", type=int, default=8)
+parser.add_argument("--stop_bit", help="stop bit, default 1", type=int, default=1)
+parser.add_argument("--parity", help="parity, default N", default="N")
+parser.add_argument("--data_bit", help="databits, default 8", type=int, default=8)
+parser.add_argument("--baud", help="baudrate, default 9600", type=int, default=9600)
 parser.add_argument("--serial", help="Serial interface, default /dev/serial0",
                     default="/dev/serial0")
 parser.add_argument("--deviceid", help="Modbus device id, default 10",
