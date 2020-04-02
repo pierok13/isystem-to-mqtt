@@ -3,7 +3,7 @@ master mode """
 
 import logging
 import os
-
+import serial
 #from minimalmodbus import Instrument, serial, MODE_RTU
 from pylibmodbus import ModbusRtu
 
