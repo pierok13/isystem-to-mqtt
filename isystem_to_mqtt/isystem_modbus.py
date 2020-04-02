@@ -11,8 +11,6 @@ _LOGGER = logging.getLogger(__name__)
 # Bi master timeslot
 # peer is master for 5s then we can be master for 5s
 # timeout to 400ms
-os.system ("gpio mode 0 OUT") 
-os.system ("gpio mode 2 OUT") 
 TIME_SLOT = 5
 WAITING_TIMEOUT = 0.4
 # Wait a maximum of 3 cycle SLAVE => MASTER => SLAVE
@@ -35,8 +33,6 @@ class ISystemInstrument(Instrument):
     def wait_time_slot(self):
         """ In bi-master mode, wait for the 5s boiler is slave. """
         # if not in bimaster mode no need to wait
-        os.system ("gpio write 0 0") 
-        os.system ("gpio write 2 1") 
         if not self.bimaster:
             return
 
@@ -60,7 +56,5 @@ class ISystemInstrument(Instrument):
         self.serial.close()
         self.serial.timeout = 1.0
         _LOGGER.debug("We are master.")
-        os.system ("gpio write 0 1") 
-        os.system ("gpio write 2 0") 
         # we are master for a maximum of  4.6s (5s - 400ms)
 
