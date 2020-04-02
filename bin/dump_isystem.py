@@ -8,7 +8,7 @@ from __future__ import print_function
 import argparse
 import logging
 import time
-import minimalmodbus
+#import minimalmodbus
 import isystem_to_mqtt.isystem_modbus
 
 import isystem_to_mqtt.tables
@@ -16,8 +16,11 @@ import isystem_to_mqtt.tables
 parser = argparse.ArgumentParser()
 parser.add_argument("--start", help="Start adress default=0.", type=int, default=0)
 parser.add_argument("--number", help="Number of word to read.", type=int, default=838)
-parser.add_argument("--serial", help="Serial interface, default /dev/ttyUSB0",
-                    default="/dev/ttyUSB0")
+parser.add_argument("--stop_bit", help="stop bit", type=int, default=1)
+parser.add_argument("--parity", help="parity", default="N")
+parser.add_argument("--data_bit", help="databits", type=int, default=8)
+parser.add_argument("--serial", help="Serial interface, default /dev/serial0",
+                    default="/dev/serial0")
 parser.add_argument("--deviceid", help="Modbus device id, default 10",
                     type=int, default=10)
 parser.add_argument("--log", help="Logging level, default INFO",
@@ -43,15 +46,30 @@ _LOGGER = logging.getLogger(__name__)
 
 
 # Initialisation of Modbus
-minimalmodbus.CLOSE_PORT_AFTER_EACH_CALL = True
 instrument = isystem_to_mqtt.isystem_modbus.ISystemInstrument(args.serial,
-                                                              args.deviceid,
+                                                              args.baud,
+                                                              args.parity,
+                                                              args.data_bit,
+                                                              args.stop_bit,
                                                               args.bimaster)
-instrument.debug = False   # True or False
+#instrument.debug = False   # True or False
 
 
 def read_zone(base_address, number_of_value):
     """ Read a MODBUS table zone and dump raw and converted. """
+    instrument.connect()
+    #Set Slave ID number
+    instrument.set_slave(SERVER_ID)
+
+    #Enable RPi GPIO Functions
+    instrument.enable_rpi(1)
+
+    #Define pin numbers to be used as Read Enable (RE) and Drive Enable (DE)
+    instrument.configure_rpi_bcm_pins(instrument.BCM_PIN_DE,instrument.BCM_PIN_RE)
+
+    #Export pin direction (set as outputs)
+    instrument.rpi_pin_export_direction()
+    
     try:
         raw_values = instrument.read_registers(base_address, number_of_value)
     except EnvironmentError:
@@ -73,7 +91,8 @@ def read_zone(base_address, number_of_value):
                 if address < next_not_used_adress:
                     print("^", end='')
             print("")
-
+        instrument.rpi_pin_unexport_direction()
+        instrument.close()
 instrument.wait_time_slot()
 
 
