@@ -3,10 +3,9 @@ master mode """
 
 import logging
 import os
-import serial
 
 #from minimalmodbus import Instrument, serial, MODE_RTU
-from pylibmodbus import ModbusRtu
+from pylibmodbus import ModbusRtu,serial
 
 _LOGGER = logging.getLogger(__name__)
 
