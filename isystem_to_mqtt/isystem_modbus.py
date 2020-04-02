@@ -23,7 +23,7 @@ BCM_PIN_RE=27
 
 class ISystemInstrument(ModbusRtu):
     """ Modbus instrument dedicated to Isystem """
-    def __init__(self, device="/dev/tty/serial0", baud=9600, parity="N", data_bit=8, stop_bit=1, bimaster=True):
+    def __init__(self, device="/dev/serial0", baud=9600, parity="N", data_bit=8, stop_bit=1, bimaster=True):
         ModbusRtu.__init__(self, device, baud, parity, data_bit, stop_bit)
         self.serial.baudrate = baud
         self.serial.bytesize = data_bit
