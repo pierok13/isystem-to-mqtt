@@ -59,13 +59,13 @@ def read_zone(base_address, number_of_value):
     """ Read a MODBUS table zone and dump raw and converted. """
     instrument.connect()
     #Set Slave ID number
-    instrument.set_slave(SERVER_ID)
+    instrument.set_slave(args.deviceid)
 
     #Enable RPi GPIO Functions
     instrument.enable_rpi(1)
 
     #Define pin numbers to be used as Read Enable (RE) and Drive Enable (DE)
-    instrument.configure_rpi_bcm_pins(instrument.BCM_PIN_DE,instrument.BCM_PIN_RE)
+    instrument.configure_rpi_bcm_pins(isystem_to_mqtt.isystem_modbus.BCM_PIN_DE,isystem_to_mqtt.isystem_modbus.BCM_PIN_RE)
 
     #Export pin direction (set as outputs)
     instrument.rpi_pin_export_direction()
