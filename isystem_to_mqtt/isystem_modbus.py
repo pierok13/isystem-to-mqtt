@@ -18,6 +18,8 @@ WAITING_TIMEOUT = 0.4
 # Wait a maximum of 3 cycle SLAVE => MASTER => SLAVE
 MAXIMUM_LOOP = 1 + int(TIME_SLOT * 3 / WAITING_TIMEOUT)
 MAXIMUM_OPERATION = TIME_SLOT - WAITING_TIMEOUT
+BCM_PIN_DE=17
+BCM_PIN_RE=27
 
 class ISystemInstrument(ModbusRtu):
     """ Modbus instrument dedicated to Isystem """
