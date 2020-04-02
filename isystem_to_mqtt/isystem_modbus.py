@@ -3,8 +3,10 @@ master mode """
 
 import logging
 import os
+import serial
 
-from minimalmodbus import Instrument, serial, MODE_RTU
+#from minimalmodbus import Instrument, serial, MODE_RTU
+from pylibmodbus import ModbusRtu
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -17,16 +19,15 @@ WAITING_TIMEOUT = 0.4
 MAXIMUM_LOOP = 1 + int(TIME_SLOT * 3 / WAITING_TIMEOUT)
 MAXIMUM_OPERATION = TIME_SLOT - WAITING_TIMEOUT
 
-class ISystemInstrument(Instrument):
+class ISystemInstrument(ModbusRtu):
     """ Modbus instrument dedicated to Isystem """
-    def __init__(self, port, slaveaddress, bimaster=False):
-        Instrument.__init__(self, port, slaveaddress)
-        self.serial.baudrate = 9600
-        self.serial.bytesize = serial.EIGHTBITS
-        self.serial.parity = serial.PARITY_NONE
-        self.serial.stopbits = serial.STOPBITS_ONE
+    def __init__(self, device="/dev/tty/serial0", baud=9600, parity="N", data_bit=8, stop_bit=1, bimaster=True):
+        ModbusRtu.__init__(self, device, baud, parity, data_bit, stop_bit)
+        self.serial.baudrate = baud
+        self.serial.bytesize = data_bit
+        self.serial.parity = parity
+        self.serial.stopbits = stop_bit
         self.serial.timeout = 1
-        self.mode = MODE_RTU
         self.bimaster = bimaster
 
 
